@@ -1,1 +1,19 @@
-<p>main works!</p>
+<h1>Scoot Take Home Test!</h1>
+
+<mat-form-field class="example-form-field">
+    <mat-label>Clearable input</mat-label>
+    <input matInput type="text" [(ngModel)]="filterValue" (keyup)="filterByDesc()">
+    <button *ngIf="filterValue" matSuffix mat-icon-button aria-label="Clear" (click)="filterByDesc(true)">
+      <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+
+<mat-chip-listbox aria-label="Priority selection">
+    <mat-chip-option color="primary" (click)="filterByPrio('Low')">Low</mat-chip-option>
+    <mat-chip-option color="accent" (click)="filterByPrio('Medium')">Medium</mat-chip-option>
+    <mat-chip-option color="warn" (click)="filterByPrio('High')">High</mat-chip-option>
+  </mat-chip-listbox>
+
+<p *ngFor="let task of filteredList">
+    {{task.description}} - {{task.dueDate | date: "MM-dd-YYYY"}} - {{task.priority}}
+</p>
