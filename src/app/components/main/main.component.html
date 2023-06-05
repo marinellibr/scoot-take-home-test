@@ -1,19 +1,50 @@
-<h1>Scoot Take Home Test!</h1>
+<div class="container">
+    <div class="title">
+        <h1>Scoot Take Home Test!</h1>
+    </div>
 
-<mat-form-field class="example-form-field">
-    <mat-label>Clearable input</mat-label>
-    <input matInput type="text" [(ngModel)]="filterValue" (keyup)="filterByDesc()">
-    <button *ngIf="filterValue" matSuffix mat-icon-button aria-label="Clear" (click)="filterByDesc(true)">
-      <mat-icon>close</mat-icon>
-    </button>
-</mat-form-field>
+    <section class="mock-generator">
+        <h2>Click to generate mock data</h2>
+        <div class="button-row">
+            <button mat-flat-button color="primary" (click)="createMock(10)">10</button>
+            <button mat-flat-button color="primary" (click)="createMock(100)">100</button>
+            <button mat-flat-button color="primary" (click)="createMock(1000)">1000</button>
+        </div>
+    </section>
 
-<mat-chip-listbox aria-label="Priority selection">
-    <mat-chip-option color="primary" (click)="filterByPrio('Low')">Low</mat-chip-option>
-    <mat-chip-option color="accent" (click)="filterByPrio('Medium')">Medium</mat-chip-option>
-    <mat-chip-option color="warn" (click)="filterByPrio('High')">High</mat-chip-option>
-  </mat-chip-listbox>
+    <section class="filter">
+        <mat-form-field class="form-field">
+            <mat-label>Search by description</mat-label>
+            <input matInput type="text" [(ngModel)]="filterValue" (keyup)="filterByDesc()">
+            <button *ngIf="filterValue" matSuffix mat-icon-button aria-label="Clear" (click)="filterByDesc(true)">
+            <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </section>
 
-<p *ngFor="let task of filteredList">
-    {{task.description}} - {{task.dueDate | date: "MM-dd-YYYY"}} - {{task.priority}}
-</p>
+    <section class="priority-container">
+        <mat-chip-listbox aria-label="Priority selection">
+            <mat-chip-option color="accent" (click)="filterByPrio('Low')">Low Priority Only</mat-chip-option>
+            <mat-chip-option color="primary" (click)="filterByPrio('Medium')">Medium Priority Only</mat-chip-option>
+            <mat-chip-option color="warn" (click)="filterByPrio('High')">High Priority Only</mat-chip-option>
+        </mat-chip-listbox>
+    </section>
+
+    <section class="cards-container">
+        <mat-card *ngFor="let task of filteredList">
+            <mat-card-content>
+                <div class="task">
+                    {{task.description}}
+                </div>
+                <div class="info">
+                    {{task.priority}} - {{task.dueDate | date: "MM-dd-YYYY"}}
+
+                    <div class="delete">
+                        <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="delete" (click)="removeItem(task.id)"></mat-icon>
+                    </div>
+                </div>
+                
+            </mat-card-content>
+        </mat-card>
+    </section>
+</div>

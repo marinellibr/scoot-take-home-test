@@ -9,17 +9,20 @@ import { Task } from 'src/app/models/task';
 export class MainComponent implements OnInit {
 
   ngOnInit(): void {
-    this.createMock();
+    this.createMock(20);
   }
 
 
-  createMock(){
-    for (let i = 0; i < Math.floor(Math.random() * 11) + 10; i++) {
-      const description = `Task ${i + 1}`;
+  createMock(limit: number){
+    this.fakeData = [];
+    this.filteredList = this.fakeData;
+    for (let i = 0; i < limit; i++) {
+      const description = this.activities[Math.floor(Math.random() * this.activities.length)];
       const dueDate = new Date(Date.now() + Math.floor(Math.random() * 86400000)); // Random date within next 24 hours
       const priority = this.getRandomPriority();
-    
-      this.fakeData.push({ description, dueDate, priority });
+      const id = i;
+
+      this.fakeData.push({ description, dueDate, priority, id });
       this.filteredList = this.fakeData;
     }
   }
@@ -48,6 +51,7 @@ export class MainComponent implements OnInit {
   prioFilter: string = '';
 
   filterByPrio(prio: string){
+    this.filterValue = '';
     if(this.prioFilter == prio){
       this.prioFilter = '';
       this.filteredList = this.fakeData;
@@ -59,5 +63,38 @@ export class MainComponent implements OnInit {
       })
     }
   }
+
+  removeItem(id: number){
+    this.fakeData.splice(this.fakeData.findIndex(item => item.id === id), 1);
+    this.update();
+  }
+
+  update(){
+    this.filterByDesc(true);
+    this.filterByPrio(this.prioFilter);
+  }
+
+  activities = [
+    "Grocery shopping",
+    "Meeting with friends",
+    "Going to the gym",
+    "Watching a movie",
+    "Cooking dinner",
+    "Reading a book",
+    "Taking a walk",
+    "Attending a party",
+    "Writing an email",
+    "Playing a sport",
+    "Visiting a museum",
+    "Doing household chores",
+    "Learning something new",
+    "Working on a project",
+    "Listening to music",
+    "Planning a trip",
+    "Volunteering",
+    "Relaxing at home",
+    "Exploring a new city",
+    "Having a picnic"
+  ];
 
 }
