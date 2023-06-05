@@ -24,9 +24,9 @@
 
     <section class="priority-container">
         <mat-chip-listbox aria-label="Priority selection">
-            <mat-chip-option color="accent" (click)="filterByPrio('Low')">Low Priority Only</mat-chip-option>
-            <mat-chip-option color="primary" (click)="filterByPrio('Medium')">Medium Priority Only</mat-chip-option>
-            <mat-chip-option color="warn" (click)="filterByPrio('High')">High Priority Only</mat-chip-option>
+            <mat-chip-option class="low" (click)="filterByPrio('Low')">Low Priority Only</mat-chip-option>
+            <mat-chip-option color="accent" (click)="filterByPrio('Medium')">Medium Priority Only</mat-chip-option>
+            <mat-chip-option color="primary" (click)="filterByPrio('High')">High Priority Only</mat-chip-option>
         </mat-chip-listbox>
     </section>
 
@@ -34,6 +34,9 @@
         <mat-card *ngFor="let task of filteredList">
             <mat-card-content>
                 <div class="task">
+                    <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="label" class="low" *ngIf="task.priority == 'Low'"></mat-icon>
+                    <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="label" color="accent" *ngIf="task.priority == 'Medium'"></mat-icon>
+                    <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="label" color="primary" *ngIf="task.priority == 'High'"></mat-icon>
                     {{task.description}}
                 </div>
                 <div class="info">
@@ -42,8 +45,7 @@
                     <div class="delete">
                         <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="delete" (click)="removeItem(task.id)"></mat-icon>
                     </div>
-                </div>
-                
+                </div>                
             </mat-card-content>
         </mat-card>
     </section>

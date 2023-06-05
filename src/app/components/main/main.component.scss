@@ -66,6 +66,16 @@
                 justify-content: space-between;
                 align-items: center;
 
+                .task{
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    .low{
+                        color: greenyellow;
+                    }
+                }
+
                 .info{
                     display: flex;
                     align-items: center;
